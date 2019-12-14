@@ -1,0 +1,59 @@
+.HomeWelcome {
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    color: #d74a48;
+    padding: 8px;
+    margin-bottom: 16px;
+    border-radius: 3px;
+    background-color: #fdeded;
+}
+
+.HomeLogin {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    align-self: center;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
+    padding: 8px 8px;
+
+    @media (min-width: 576px) {
+        width: 480px;
+        padding: 8px 80px;
+    }
+}
+
+.HomeLoginTitle{
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    color: #ef5350;
+}
+
+.HomeLoginCaption{
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    color: #f7a9a7;
+    padding-bottom: 12px;
+}
+
+.HomeUsername{
+    padding-bottom: 8px;
+}
+
+.HomePassword{
+    padding-bottom: 8px;
+}
