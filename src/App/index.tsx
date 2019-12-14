@@ -5,13 +5,13 @@ import { store } from "../Redux/store";
 import Routes from "./Routes";
 
 import "../Language";
-import Loader from "./Components/Loader";
+// import Loader from "./Components/Loader";
 
 const App: React.FC = () => {
   return (
     <Provider store={store}>
       <Routes />
-      <Loader />
+      {/* <Loader /> */}
     </Provider>
   );
 }
