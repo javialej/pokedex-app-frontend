@@ -5,6 +5,7 @@ import { HOME_PATH, SIGNUP_PATH, POKEDEX_PATH } from "../Config/constants/ROUTER
 import Home from "./Pages/Home";
 import SignUp from "./Pages/SignUp";
 import Pokedex from "./Pages/Pokedex";
+import PokemonDetail from "./Pages/PokemonDetail";
 import NotFound from "./Pages/NotFound";
 
 import PrivateRoute from "../Config/PrivateRoute";
@@ -17,7 +18,9 @@ const Routes = () => {
       {/* <AuthGate> */}
         <Switch>          
           {/* Modules routes */}        
-          <Route path={POKEDEX_PATH} component={Pokedex} />
+          <Route exact path={POKEDEX_PATH} component={Pokedex} />
+          <Route path={POKEDEX_PATH+"/pikachu"} component={PokemonDetail} />
+          
 
           {/* Common routes */}
           <Route exact path={SIGNUP_PATH} component={SignUp} />
