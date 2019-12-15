@@ -35,8 +35,8 @@ const Home = () => {
                     </div>
                     <input type="password" className="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" />
                 </div>
-                <div>
-                    <p>Don't have an account? <Link to={SIGNUP_PATH}>Create one</Link></p> 
+                <div className={styles.HomeCreateAccount}>
+                    <p>Don't have an account? <Link to={SIGNUP_PATH}>Create one.</Link></p> 
                 </div>                
                 <button className={styles.HomeLoginButton}>Sign in</button>
             </div>

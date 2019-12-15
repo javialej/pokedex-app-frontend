@@ -1,0 +1,53 @@
+.PokedexSearchBar{
+    padding-bottom: 8px;
+
+    & > input {
+        border-color: #f7a9a7;
+
+        &:hover {
+            border-color: #ef5350;
+        }        
+    }
+
+    & > div > span {
+        background-color: #fbdcdc;
+        color: #ef5350;
+        border-color: #f7a9a7;
+        &:hover {
+            border-color: #ef5350;
+        }   
+    }
+}
+
+.SignUpButton{
+    font-size: 21px;
+    line-height: 1.2;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;    
+    padding: 12px 32px;
+    margin-bottom: 16px;
+    border-radius: 3px;    
+    background-color: transparent;
+    margin: 0;
+
+    &.Register{  
+        color: #d74a48;
+        border: 0px solid #d74a48;
+        background-color: #fdeded;
+        &:hover{
+            background-color: #fbdcdc;
+        }
+    }
+    
+    &.Cancel{
+        color: #757575;
+        border: 0px solid #757575;
+        background-color: #e3e3e3;
+        &:hover{
+            background-color: #d5d5d5;         
+        }
+    }
+    
+}

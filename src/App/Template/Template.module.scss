@@ -40,6 +40,9 @@
     margin-right: -15px;
     margin-left: -15px;
     background-color: #FDEDED;  
+    border-bottom-color: #f7a9a7;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
 
     @media (min-width: 992px) {
         padding: 0;
@@ -47,6 +50,9 @@
         margin-right: 0;
         margin-left: 0;
         background-color: transparent;
+        border-bottom-color: none;
+        border-bottom-width: 0px;
+        border-bottom-style: none;
     }
 }
 
@@ -85,7 +91,7 @@
         margin: 0;  
         margin-bottom: 8px; 
         border-top: 1px solid;
-        color: #FDEDED !important;    
+        color: #facbca !important;    
         width: 100%;    
     }
 }
@@ -94,7 +100,7 @@
     display: flex;
     flex-grow: 1;
     align-self: center;
-    color: #FDEDED !important;
+    color: #facbca !important;
     font-size: 14px;
     font-weight: normal;
     font-style: normal;
@@ -110,7 +116,7 @@
     display: flex;
     flex-grow: 1;
     align-self: center;
-    color: #FDEDED !important;
+    color: #fbdcdc !important;
     font-size: 10px;
     font-weight: normal;
     font-style: normal;
