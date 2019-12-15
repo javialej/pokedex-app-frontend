@@ -6,7 +6,7 @@ import Template from "../../Template";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faKey } from "@fortawesome/free-solid-svg-icons";
 
-import { SIGNUP_PATH } from "../../../Config/constants/ROUTER_URLs";
+import { SIGNUP_PATH, POKEDEX_PATH } from "../../../Config/constants/ROUTER_URLs";
 
 import styles from "./Home.module.scss";
 
@@ -38,7 +38,7 @@ const Home = () => {
                 <div className={styles.HomeCreateAccount}>
                     <p>Don't have an account? <Link to={SIGNUP_PATH}>Create one.</Link></p> 
                 </div>                
-                <button className={styles.HomeLoginButton}>Sign in</button>
+                <Link to={POKEDEX_PATH} className={styles.HomeLoginButton}>Sign in</Link>
             </div>
         </Template>
     );
