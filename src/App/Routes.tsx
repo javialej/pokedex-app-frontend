@@ -17,7 +17,7 @@ const Routes = () => {
       {/* <AuthGate> */}
         <Switch>          
           {/* Modules routes */}        
-          <PrivateRoute path={POKEDEX_PATH} component={Pokedex} />
+          <Route path={POKEDEX_PATH} component={Pokedex} />
 
           {/* Common routes */}
           <Route exact path={SIGNUP_PATH} component={SignUp} />
