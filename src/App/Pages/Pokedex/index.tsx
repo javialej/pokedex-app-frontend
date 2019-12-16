@@ -1,33 +1,50 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import Template from "../../Template";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faKey } from "@fortawesome/free-solid-svg-icons";
-
-import { HOME_PATH } from "../../../Config/constants/ROUTER_URLs";
+import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./Pokedex.module.scss";
+import PokemonCard from "../../Components/PokemonCard";
 
 const Home = () => {
 
     return (
-        <Template>
-            <div className={styles.PokedexSearchBar}>
-                                   
+        <Template>            
+            <div className={`input-group ${styles.PokedexSearchBar}`}>                
+                <input type="text" className="form-control" placeholder="Search a Pokemon!" aria-label="Search" aria-describedby="Search" />
+                <div className="input-group-append">
+                    <button className={`${styles.PokedexButton} ${styles.Search}`} type="button" id="button-addon1">
+                        <FontAwesomeIcon icon={faSearch} />
+                    </button>
+                    <button className={`${styles.PokedexButton} ${styles.Clean}`} type="button" id="button-addon2">
+                        <FontAwesomeIcon icon={faTimes} />
+                    </button>
+                </div>                
             </div>
 
-            <div className={`input-group ${styles.PokedexSearchBar}`}>
-                <div className="input-group-prepend">
-                    <span className="input-group-text" id="basic-addon1">
-                        <FontAwesomeIcon icon={faUser} />
-                    </span>
-                </div>
-                <input type="text" className="form-control is-valid" placeholder="Trainer full name" aria-label="Username" aria-describedby="basic-addon1" />
-                <div className="valid-feedback">Looks good!</div>
-                <div className="invalid-feedback">Please complete input form!</div>
-            </div>
+            { true ? (
+                <>                  
+                    <div className={styles.PokedexResultsTitle}>Results ...</div>                    
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-4">
+                                <PokemonCard />
+                            </div>
+                            <div className="col-4">
+                                <PokemonCard />
+                            </div>                        
+                            <div className="col-4">
+                                <PokemonCard />
+                            </div>                            
+                        </div>                       
+                    </div>                            
+                </>
+            ): (
+                <div className={styles.PokedexResultsTitle}>Search something and discover the world of pokemons!</div>
+            )}            
+
         </Template>
     );
 };

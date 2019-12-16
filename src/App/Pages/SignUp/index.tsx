@@ -68,7 +68,7 @@ const Home = () => {
                 </div>          
 
                 <div className={styles.SignUpRegisterButtons}> 
-                    <button className={`${styles.SignUpButton} ${styles.Register}`}>Create!</button>
+                    <Link to={HOME_PATH} className={`${styles.SignUpButton} ${styles.Register}`}>Create!</Link>
                     <button className={`${styles.SignUpButton} ${styles.Cancel}`}>Cancel</button>
                 </div>                      
             </div>

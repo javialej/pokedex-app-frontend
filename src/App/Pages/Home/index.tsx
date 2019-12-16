@@ -6,7 +6,7 @@ import Template from "../../Template";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faKey } from "@fortawesome/free-solid-svg-icons";
 
-import { SIGNUP_PATH } from "../../../Config/constants/ROUTER_URLs";
+import { SIGNUP_PATH, POKEDEX_PATH } from "../../../Config/constants/ROUTER_URLs";
 
 import styles from "./Home.module.scss";
 
@@ -25,6 +25,8 @@ const Home = () => {
                         </span>
                     </div>
                     <input type="text" className="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                    <div className="valid-feedback">Looks good!</div>
+                    <div className="invalid-feedback">Please complete input form!</div>
                 </div>
 
                 <div className={`input-group ${styles.HomePassword}`}>
@@ -34,11 +36,14 @@ const Home = () => {
                         </span>
                     </div>
                     <input type="password" className="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" />
+                    <div className="valid-feedback">Looks good!</div>
+                    <div className="invalid-feedback">Please complete input form!</div>
                 </div>
+                
                 <div className={styles.HomeCreateAccount}>
                     <p>Don't have an account? <Link to={SIGNUP_PATH}>Create one.</Link></p> 
                 </div>                
-                <button className={styles.HomeLoginButton}>Sign in</button>
+                <Link to={POKEDEX_PATH} className={styles.HomeLoginButton}>Sign in</Link>
             </div>
         </Template>
     );
