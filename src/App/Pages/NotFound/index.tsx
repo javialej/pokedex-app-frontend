@@ -1,6 +1,5 @@
 import React from "react";
 import Template from "../../Template";
-import { Translator } from "../../../Language/Translator";
 import { withRouter } from "react-router";
 
 const NotFound = (props: any) => {

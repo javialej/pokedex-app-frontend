@@ -25,6 +25,8 @@ const Home = () => {
                         </span>
                     </div>
                     <input type="text" className="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                    <div className="valid-feedback">Looks good!</div>
+                    <div className="invalid-feedback">Please complete input form!</div>
                 </div>
 
                 <div className={`input-group ${styles.HomePassword}`}>
@@ -34,7 +36,10 @@ const Home = () => {
                         </span>
                     </div>
                     <input type="password" className="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" />
+                    <div className="valid-feedback">Looks good!</div>
+                    <div className="invalid-feedback">Please complete input form!</div>
                 </div>
+                
                 <div className={styles.HomeCreateAccount}>
                     <p>Don't have an account? <Link to={SIGNUP_PATH}>Create one.</Link></p> 
                 </div>                

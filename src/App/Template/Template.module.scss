@@ -22,10 +22,13 @@
     }
 }
 
+button:focus {    
+    outline: 0px auto #D74A48;
+}
 
 .NavButtonToggler{
-    background-color: #EF5350;    
-    border: 1px solid white;
+    background-color: #D74A48;    
+    border: 0px solid;
     border-radius: 3px; 
     justify-self: flex-end;   
 
@@ -69,6 +72,10 @@
     flex-direction: column;
     background-color: #D74A48 !important;
     color: white;
+    
+    &:hover {
+        border-color: #D74A48;
+    }        
 }
 
 
