@@ -1,4 +1,6 @@
 // Import Bootstrap and its default variables
+$grid-gutter-width: 8px;
+
 @import '~bootstrap/scss/bootstrap.scss';
 
 body {

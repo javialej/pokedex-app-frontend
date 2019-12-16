@@ -1,18 +1,4 @@
-.HomeWelcome {
-    font-size: 16px;
-    line-height: 1.2;
-    font-weight: 600;
-    font-style: normal;
-    font-stretch: normal;
-    letter-spacing: normal;
-    color: #d74a48;
-    padding: 8px;
-    margin-bottom: 16px;
-    border-radius: 3px;
-    background-color: #fdeded;
-}
-
-.HomeLogin {
+.SignUp {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -21,15 +7,15 @@
     align-self: center;
     border-radius: 3px;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
-    padding: 8px 8px;
+    padding: 16px 16px;
 
     @media (min-width: 576px) {
         width: 480px;
-        padding: 8px 80px;
+        padding: 16px 80px;
     }
 }
 
-.HomeLoginTitle{
+.SignUpTitle{
     font-size: 24px;
     line-height: 1.2;
     font-weight: 500;
@@ -37,23 +23,93 @@
     font-stretch: normal;
     letter-spacing: normal;
     color: #ef5350;
+    padding-bottom: 5px;
 }
 
-.HomeLoginCaption{
+.SignUpCaption{
     font-size: 14px;
     line-height: 1.2;
     font-weight: normal;
     font-style: normal;
     font-stretch: normal;
     letter-spacing: normal;
-    color: #f7a9a7;
     padding-bottom: 12px;
 }
 
-.HomeUsername{
+.SignUpInput{
     padding-bottom: 8px;
+
+    & > input {
+        border-color: #f7a9a7;
+
+        &:hover {
+            border-color: #ef5350;
+        }        
+    }
+
+    & > div > span {
+        background-color: #fbdcdc;
+        color: #ef5350;
+        border-color: #f7a9a7;
+        &:hover {
+            border-color: #ef5350;
+        }   
+    }
 }
 
-.HomePassword{
+.SignUpCreateAccount{
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
     padding-bottom: 8px;
+    & > p {
+        margin: 0;
+    }
+}
+
+.SignUpButton{
+    font-size: 21px;
+    line-height: 1.2;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;    
+    padding: 12px 32px;
+    margin-bottom: 16px;
+    border-radius: 3px;    
+    background-color: transparent;
+    margin: 0;
+
+    &.Register{  
+        color: #d74a48;
+        border: 0px solid #d74a48;
+        background-color: #fdeded;
+        &:hover{
+            background-color: #fbdcdc;
+        }
+    }
+    
+    &.Cancel{
+        color: #757575;
+        border: 0px solid #757575;
+        background-color: #e3e3e3;
+        &:hover{
+            background-color: #d5d5d5;         
+        }
+    }
+    
+}
+
+
+
+.SignUpRegisterButtons{
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 12px;
 }
