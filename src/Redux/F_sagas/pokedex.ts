@@ -9,7 +9,7 @@ import {
     GET_POKEDEX_SEARCH_FETCHING
 } from "../A_constants/pokedex";
 
-export function* watchCommissionsNextToPayStart() {
+export function* watchPokedexStart() {
   yield takeEvery(GET_POKEDEX_DETAILS_FETCHING, handlePokedexDetailsFetch);
   yield takeEvery(GET_POKEDEX_SEARCH_FETCHING, handlePokedexSearchFetch);  
 }

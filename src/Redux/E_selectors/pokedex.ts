@@ -1,13 +1,28 @@
 import { AppState } from "../D_reducers/index";
 
-export const getApp = (state: AppState): any => state.;
+export const getPokedex = (state: AppState) : any => state.pokedex;
 
-export const getScreen = (state: AppState) => {
-  const app = getApp(state);
-  return app.screen;
+export const getListOfResults = (state: AppState) => {
+  const pokedex = getPokedex(state);
+  return pokedex.listOfResults;
 };
 
-export const getTheme = (state: AppState) => {
-  const app = getApp(state);
-  return app.theme;
+export const getPokemonNameDetails = (state: AppState) => {
+  const pokedex = getPokedex(state);
+  return pokedex.pokemonNameDetails;
+};
+
+export const getPokemonNameSearch = (state: AppState) => {
+  const pokedex = getPokedex(state);
+  return pokedex.pokemonNameSearch;
+};
+
+export const getPokemonDetails = (state: AppState) => {
+  const pokedex = getPokedex(state);
+  return pokedex.getPokemonDetails;
+};
+
+export const getPokemonSearch = (state: AppState) => {
+  const pokedex = getPokedex(state);
+  return pokedex.getPokemonSearch;
 };
