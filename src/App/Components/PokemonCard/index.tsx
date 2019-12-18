@@ -33,7 +33,7 @@ const stylePokemonType = (typeName : any) => {
         case "grass": type = styles.Grass; name="GRASS"; break;
         case "poison": type = styles.Poison; name="POISON"; break;
         case "electric": type = styles.Electric; name="ELECTRIC"; break;
-        case "groung": type = styles.Ground; name="GROUND"; break;
+        case "ground": type = styles.Ground; name="GROUND"; break;
         case "psychic": type = styles.Psychic; name="PSYCHIC"; break;
         case "rock": type = styles.Rock; name="ROCK"; break;
         case "ice": type = styles.Ice; name="ICE"; break;

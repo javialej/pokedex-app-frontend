@@ -1,5 +1,5 @@
-import React, { useEffect} from "react";
-import {  withRouter, RouteComponentProps } from "react-router";
+import React, { useEffect, useContext } from "react";
+import { withRouter, __RouterContext } from "react-router";
 import { Link } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +28,7 @@ import {
 
 import styles from "./PokemonDetail.module.scss";
 
+const useRouter = () => useContext(__RouterContext);
 interface IPokemonDetails {
     id : number;
     name : string;
@@ -38,20 +39,20 @@ interface IPokemonDetails {
     moves : Array<string>;
 }
 
-type TParams = { id: string; };
+const PokemonDetail = () => {
+    
+    const router = useRouter();
+    const { match } = router;
 
-type DetailProps = RouteComponentProps<TParams>;
+    let pokeName = match.url.replace(`${POKEDEX_PATH}/`, "");
 
-const PokemonDetail = ({ match } : DetailProps) => {
-
-    let pokeName = match.params.id;
-
+    console.log(pokeName)
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(setPokemonNameDetails(pokeName));
         dispatch(onPokedexDetailsFetch());
-    },[]);
+    },[dispatch, pokeName]);
 
     const PokemonDetails : any = useSelector((state: AppState) => getPokemonDetails(state));
    
@@ -137,7 +138,7 @@ const stylePokemonType = (typeName : any) => {
         case "grass": type = styles.Grass; name="GRASS"; break;
         case "poison": type = styles.Poison; name="POISON"; break;
         case "electric": type = styles.Electric; name="ELECTRIC"; break;
-        case "groung": type = styles.Ground; name="GROUND"; break;
+        case "ground": type = styles.Ground; name="GROUND"; break;
         case "psychic": type = styles.Psychic; name="PSYCHIC"; break;
         case "rock": type = styles.Rock; name="ROCK"; break;
         case "ice": type = styles.Ice; name="ICE"; break;

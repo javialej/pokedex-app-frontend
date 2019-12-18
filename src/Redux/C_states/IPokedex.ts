@@ -1,3 +1,25 @@
+export interface IDataDetails {
+  id: number;
+  name : string;
+  height : number;
+  weight : number;
+  img : string;
+  types : Array<string>;
+  moves : Array<string>;
+}
+
+export interface IGetPokemonDetails {
+  loading : boolean;
+  data : IDataDetails;
+  error ?: any;
+}
+
+export interface IGetPokemonSearch {
+  loading : boolean;
+  data : Array<IPokeResult>;
+  error ?: any;
+}
+
 export interface IPokeResult {
     id: number;
     img: string;
@@ -11,8 +33,8 @@ export interface IPokedexState {
     listOfResults: Array<IPokeResult>;
     pokemonNameDetails: string;
     pokemonNameSearch: string;
-    getPokemonDetails: any;    
-    getPokemonSearch: any;    
+    getPokemonDetails: IGetPokemonDetails;    
+    getPokemonSearch: IGetPokemonSearch;    
   }
   
   export const defaultPokedexState: IPokedexState = {
@@ -21,7 +43,21 @@ export interface IPokedexState {
     listOfResults: [],
     pokemonNameDetails: "",
     pokemonNameSearch: "",
-    getPokemonDetails: {},
-    getPokemonSearch: {}
+    getPokemonDetails: {
+      loading: false,
+      data: {
+        id: -1,
+        name : "",
+        height : -1,
+        weight : -1,
+        img : "",
+        types : [],
+        moves : []
+      }
+    },
+    getPokemonSearch: {
+      loading : false,
+      data : []
+    }
   };
   

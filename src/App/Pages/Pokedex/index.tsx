@@ -53,8 +53,7 @@ const Home = () => {
             ) : (
                 <>
                     { results.length ? (
-                        <>    
-                            <div className={styles.PokedexResultsTitle}>Results ...</div>                    
+                        <>                                
                             <div className="container">
                                 <div className="row">
                                     { results.map((pokemon: any, index) => {
