@@ -46,7 +46,7 @@ const SignUp = ({ ...props } : any) => {
                             ref={ register({ 
                                 required: true, 
                                 minLength: 1,
-                                maxLength: 20,
+                                maxLength: 30,
                                 pattern: /^[A-Za-z0-9\sA-Za-z0-9]+$/i
                             }) }
                             onChange={async () => triggerValidation({ name: 'name' })}
@@ -56,7 +56,7 @@ const SignUp = ({ ...props } : any) => {
                             aria-describedby="nameForm" 
                         />    
                         <div className="valid-feedback">Looks good!</div>
-                        <div className="invalid-feedback">Please complete input form! (max: 20)</div>
+                        <div className="invalid-feedback">Please complete input form! (max: 30)</div>
                     </div>
 
                     <div className={`input-group ${styles.SignUpInput}`}>

@@ -89,8 +89,8 @@ export function* handlePokedexSearchFetch() {
     const pokemonName : string = yield select(getPokemonNameSearch);
 
     const response = yield call(getPokedexSearch, offset, limit);
-    let { data:{ results } } = response;
-     
+    let { data:{ results } } = response; 
+    
     if (results && Array.isArray(results)) {
         
         results = results.map((item: any, index: any) => { 
@@ -101,10 +101,11 @@ export function* handlePokedexSearchFetch() {
 
         if(pokemonName===""){
             Search = results;
-        }else {
+        }else {            
             // REGEX search.                
-            results.forEach((item : string) => { 
-                let founded = item.match(`/${pokemonName}+/g`);
+            let regularExpression = new RegExp(`((?:\\w|)${pokemonName}(\\w|))`, "g");
+            results.forEach((item : string) => {             
+                let founded = item.match(regularExpression);                
                 if(Array.isArray(founded)){
                     if(founded[0]){
                         Search.push(item);

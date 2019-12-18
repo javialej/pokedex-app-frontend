@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import useForm from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { 
     onPokedexSearchFetch,
@@ -10,6 +10,7 @@ import {
 import { AppState } from "../../../Redux/D_reducers";
 import { 
     getPokemonSearch,
+    getPokemonNameSearch,
     getListOfResults
 } from "../../../Redux/E_selectors/pokedex";
 
@@ -23,30 +24,71 @@ import styles from "./Pokedex.module.scss";
 import PokemonCard from "../../Components/PokemonCard";
 
 const Home = () => {
-    
+
     const dispatch = useDispatch();
 
+    const { register, watch, errors, triggerValidation, reset, clearError, handleSubmit } = useForm()
+    const onSubmit = (data : any) => { 
+        dispatch(setPokemonNameSearch(data.search));
+        dispatch(setPokemonConfigSearch());
+        dispatch(onPokedexSearchFetch());
+    }
+    
+    const handleClear = () => {
+        reset();
+        clearError();
+        dispatch(setPokemonNameSearch(""));
+        dispatch(setPokemonConfigDefaultSearch());
+        dispatch(onPokedexSearchFetch());
+    };
+
     const PokemonSearch : any = useSelector((state: AppState) => getPokemonSearch(state));
+    const PokemonNameSearch : any = useSelector((state: AppState) => getPokemonNameSearch(state));
     const results : Array<any> = useSelector((state: AppState) => getListOfResults(state));
 
     useEffect(() => {
-        dispatch(setPokemonConfigDefaultSearch());
+        if(PokemonNameSearch !== ""){
+            dispatch(setPokemonConfigSearch());
+        }else{
+            dispatch(setPokemonConfigDefaultSearch());
+        }
         dispatch(onPokedexSearchFetch());
     },[]);
 
     return (
-        <Template>            
-            <div className={`input-group ${styles.PokedexSearchBar}`}>                
-                <input type="text" className="form-control" placeholder="Search a Pokemon!" aria-label="Search" aria-describedby="Search" />
-                <div className="input-group-append">
-                    <button className={`${styles.PokedexButton} ${styles.Search}`} type="button" id="button-addon1">
-                        <FontAwesomeIcon icon={faSearch} />
-                    </button>
-                    <button className={`${styles.PokedexButton} ${styles.Clean}`} type="button" id="button-addon2">
-                        <FontAwesomeIcon icon={faTimes} />
-                    </button>
-                </div>                
-            </div>
+        <Template>      
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className={`input-group ${styles.PokedexSearchBar}`}>                
+                    <input 
+                        name="search"
+                        type="text" 
+                        ref={ register({ 
+                            required: true, 
+                            minLength: 3,
+                            maxLength: 20,
+                            pattern: /^[A-Za-z]+$/i
+                        }) }
+                        onChange={async () => triggerValidation({ name: 'search' })}
+                        className={`form-control ${styles.PokedexSearchInput} ${ (watch("search") === undefined || watch("search") === "") ? "" : (errors.search === undefined ? "is-valid" : "is-invalid") }`} 
+                        placeholder="Search a Pokemon!" 
+                        aria-label="Search" 
+                        aria-describedby="Search" 
+                    />
+
+                    <div className="input-group-append">
+                        <button type="submit" className={`${styles.PokedexButton} ${styles.Search}`} id="search-button">
+                            <FontAwesomeIcon icon={faSearch} />
+                        </button>
+                        <button type="button" onClick={handleClear} className={`${styles.PokedexButton} ${styles.Clean}`} id="clean-button">
+                            <FontAwesomeIcon icon={faTimes} />
+                        </button>
+                    </div>               
+                    { (watch("search") === undefined || watch("search") === "") ? "" : <hr /> }
+                    <div className={`valid-feedback ${styles.Feedback}`}>...Click search button to discover new pokemons!</div>
+                    <div className={`invalid-feedback ${styles.Feedback}`}>...Minimum 3 letters, only letters are allowed.</div>
+                </div>
+                
+            </form>
 
             { PokemonSearch.loading ? (
                 <div className={styles.PokedexResultsTitle}>Loading!...</div>
@@ -58,7 +100,7 @@ const Home = () => {
                                 <div className="row">
                                     { results.map((pokemon: any, index) => {
                                         return (
-                                            <div key={index} className="col-4 col-md-3 col-lg-2 col-xl-2"> 
+                                            <div key={index} className="col-4 col-md-3 col-lg-3 col-xl-3"> 
                                                 <PokemonCard linkTo={`/pokedex/${pokemon.name}`} name={pokemon.name} types={pokemon.types} img={pokemon.img} />
                                             </div>
                                         )                           

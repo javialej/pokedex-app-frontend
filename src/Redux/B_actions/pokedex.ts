@@ -28,7 +28,7 @@ export const onPokedexSearchSuccess = createAction(GET_POKEDEX_SEARCH_SUCCESS);
 export const onPokedexSearchError = createAction(GET_POKEDEX_SEARCH_ERROR);
 
 export const setPokemonNameSearch = createAction(SET_POKEMON_NAME_SEARCH, (payload : any) => payload );
-export const setPokemonConfigSearch = createAction(SET_POKEMON_CONFIG_SEARCH, (payload : any) => payload );
+export const setPokemonConfigSearch = createAction(SET_POKEMON_CONFIG_SEARCH);
 export const setPokemonConfigDefaultSearch = createAction(SET_POKEMON_CONFIG_DEFAULT_SEARCH);
 
 export const cleanPokedex = createAction(CLEAN_POKEDEX);
