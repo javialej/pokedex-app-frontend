@@ -9,6 +9,8 @@ import {
 } from "../../Redux/B_actions/pokedex";
 // import { IPokeResult } from "../../Redux/C_states/IPokedex";
 import {
+    getOffset,
+    getLimit,
     getPokemonNameDetails,
     getPokemonNameSearch
 } from "../../Redux/E_selectors/pokedex";
@@ -25,10 +27,12 @@ export function* handlePokedexDetailsFetch() {
     try {
         const pokemonName : string = yield select(getPokemonNameDetails);
         const response = yield call(getPokedexDetails, pokemonName);
-        
+
         if (response) {
+            const { data } = response;
             let {
                 id,
+                name,
                 height,
                 weight,
                 sprites:{
@@ -36,30 +40,31 @@ export function* handlePokedexDetailsFetch() {
                 },
                 moves,
                 types
-            } = response;
+            } = data;
             
             if(Array.isArray(moves)){
-                moves.map((item) => { return item.move.name; })
+                moves = moves.map((item) => { return item.move.name; })
             }else{
                 moves = [];
             }            
             
             if(Array.isArray(types)){
-                types.map((item) => { return item.type.name; })
+                types = types.map((item) => { return item.type.name; })
             }else{
                 types = [];
             }
 
-            const data = {
+            const Details = {
                 id,
+                name,
                 height,
                 weight,
                 img: front_default,
                 moves,
                 types,
-            }
+            }            
     
-            yield put(onPokedexDetailsSuccess(data));
+            yield put(onPokedexDetailsSuccess(Details));
         } else {
             yield put(onPokedexDetailsError("ERROR FETCHING. Check Backend server status."));
         }
@@ -79,47 +84,57 @@ const getPokedexSearch = (offset: number, limit: number) => {
 };
 export function* handlePokedexSearchFetch() {
   try {
-    const offset = 0;
-    const limit = 900;    
+    const offset : number = yield select(getOffset);
+    const limit : number = yield select(getLimit);    
     const pokemonName : string = yield select(getPokemonNameSearch);
 
     const response = yield call(getPokedexSearch, offset, limit);
-    const { results } = response;
-
+    let { data:{ results } } = response;
+     
     if (results && Array.isArray(results)) {
-        results.map((item) => { return item.name; });
         
-        // REGEX search.        
-        const Search : any = [];
-        results.forEach((item : string) => { 
-            let founded = item.match(`/\w+${pokemonName}\w+/g`);
-            if(Array.isArray(founded)){
-                if(founded[0]){
-                    Search.push(item);
-                }
-            }
+        results = results.map((item: any, index: any) => { 
+            return item.name; 
         });
+        
+        let Search : any = [];
+
+        if(pokemonName===""){
+            Search = results;
+        }else {
+            // REGEX search.                
+            results.forEach((item : string) => { 
+                let founded = item.match(`/${pokemonName}+/g`);
+                if(Array.isArray(founded)){
+                    if(founded[0]){
+                        Search.push(item);
+                    }
+                }
+            });
+        } 
 
         if(Array.isArray(Search) && Search.length){
-            Search.map(async (item : any) => {
-                const responseDetail : any = await getPokedexDetails(item);
 
-                if(responseDetail) { 
-
+            Search = Search.map(async (item : any) => {
+                const response : any = await getPokedexDetails(item);
+                const { data } = response;
+                
+                if(data) { 
+                    
                     let {
                         id,                        
                         sprites: {
                             front_default,
                         },
                         types
-                    } = responseDetail;                      
+                    } = data;                      
                     
                     if(Array.isArray(types)){
-                        types.map((item) => { return item.type.name; })
+                        types = types = types.map((item) => { return item.type.name; })
                     }else{
                         types = [];
                     }
-
+        
                     return {
                         id,
                         img: front_default,
@@ -127,11 +142,12 @@ export function* handlePokedexSearchFetch() {
                         types,
                     };
                 }
-
-                return {};                
-            })
-        }
         
+                return {};                
+            })  
+            Search = yield Promise.all(Search);
+        }  
+
         yield put(onPokedexSearchSuccess(Search));
     } else {
       yield put(onPokedexSearchError("ERROR FETCHING. Check Backend server status."));

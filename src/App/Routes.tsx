@@ -19,7 +19,7 @@ const Routes = () => {
         <Switch>          
           {/* Modules routes */}        
           <Route exact path={POKEDEX_PATH} component={Pokedex} />
-          <Route path={POKEDEX_PATH+"/:id"} component={PokemonDetail} />
+          <Route path={POKEDEX_PATH+"/:id?"} component={PokemonDetail} />
           
 
           {/* Common routes */}

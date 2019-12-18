@@ -11,9 +11,10 @@ import {
     GET_POKEDEX_SEARCH_ERROR,
 
     SET_POKEMON_NAME_SEARCH,
-
-    CLEAN_POKEDEX_RESULT,
-    SET_POKEDEX_RESULT
+    SET_POKEMON_CONFIG_SEARCH,
+    SET_POKEMON_CONFIG_DEFAULT_SEARCH,
+    
+    CLEAN_POKEDEX
 } from "../A_constants/pokedex";
 import { defaultPokedexState, IPokedexState } from "../C_states/IPokedex";
 
@@ -37,25 +38,36 @@ export const pokedex = handleActions<IPokedexState>(
         pokemonNameSearch: action.payload
       };
     },
-    [CLEAN_POKEDEX_RESULT]: (
+    [SET_POKEMON_CONFIG_SEARCH]: (
       state: IPokedexState,
       action: any
     ) => {      
       return {
         ...state,
-        listOfResults: []
+        offset: 0,
+        limit: 900
       };
     },
-    [SET_POKEDEX_RESULT]: (
+    [SET_POKEMON_CONFIG_DEFAULT_SEARCH]: (
       state: IPokedexState,
       action: any
     ) => {      
       return {
         ...state,
-        listOfResults: [
-          ...state.listOfResults, 
-          action.payload
-        ]
+        offset: 0,
+        limit: 50
+      };
+    },
+    [CLEAN_POKEDEX]: (
+      state: IPokedexState,
+      action: any
+    ) => {      
+      return {
+        ...state,
+        offset: 0,
+        limit: 50,
+        listOfResults: [],
+        pokemonNameSearch: ""
       };
     },
     [GET_POKEDEX_DETAILS_FETCHING]: (
@@ -79,7 +91,7 @@ export const pokedex = handleActions<IPokedexState>(
         getPokemonDetails: {
           ...state.getPokemonDetails,
           loading: false,
-          data: [...action.payload]
+          data: action.payload
         }
       };
     },
@@ -102,7 +114,7 @@ export const pokedex = handleActions<IPokedexState>(
     ) => {
       return {
         ...state,
-        getPokemonDetails: {
+        getPokemonSearch: {
           ...state.getPokemonSearch,
           loading: true
         }
@@ -114,7 +126,8 @@ export const pokedex = handleActions<IPokedexState>(
     ): IPokedexState => {
       return {
         ...state,
-        getPokemonDetails: {
+        listOfResults: [...action.payload],
+        getPokemonSearch: {
           ...state.getPokemonSearch,
           loading: false,
           data: [...action.payload]
@@ -127,7 +140,7 @@ export const pokedex = handleActions<IPokedexState>(
     ): IPokedexState => {
       return {
         ...state,
-        getPokemonDetails: {
+        getPokemonSearch: {
           ...state.getPokemonSearch,
           loading: false,
           error: [...action.payload]

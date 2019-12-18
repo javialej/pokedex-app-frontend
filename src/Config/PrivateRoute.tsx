@@ -1,6 +1,5 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import { } from "../Redux/E_selectors/app_template_standard";
 import NotFound from "../App/Pages/NotFound";
 
 interface IPrivateRoute {

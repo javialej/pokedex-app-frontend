@@ -85,6 +85,11 @@ button:focus {
     padding: 8px;
     padding-top: 66px;
     max-width: 1000px;  
+
+    @media (min-width: 576px) { 
+        padding: 16px;
+        padding-top: 66px;
+    }
 }
 
 .Footer {

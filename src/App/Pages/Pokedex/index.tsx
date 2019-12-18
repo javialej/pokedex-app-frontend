@@ -1,4 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import { 
+    onPokedexSearchFetch,
+    setPokemonConfigDefaultSearch,
+    setPokemonConfigSearch,
+    setPokemonNameSearch 
+} from "../../../Redux/B_actions/pokedex";
+import { AppState } from "../../../Redux/D_reducers";
+import { 
+    getPokemonSearch,
+    getListOfResults
+} from "../../../Redux/E_selectors/pokedex";
+
 
 import Template from "../../Template";
 
@@ -9,6 +23,16 @@ import styles from "./Pokedex.module.scss";
 import PokemonCard from "../../Components/PokemonCard";
 
 const Home = () => {
+    
+    const dispatch = useDispatch();
+
+    const PokemonSearch : any = useSelector((state: AppState) => getPokemonSearch(state));
+    const results : Array<any> = useSelector((state: AppState) => getListOfResults(state));
+
+    useEffect(() => {
+        dispatch(setPokemonConfigDefaultSearch());
+        dispatch(onPokedexSearchFetch());
+    },[]);
 
     return (
         <Template>            
@@ -24,26 +48,34 @@ const Home = () => {
                 </div>                
             </div>
 
-            { true ? (
-                <>                  
-                    <div className={styles.PokedexResultsTitle}>Results ...</div>                    
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-4">
-                                <PokemonCard />
+            { PokemonSearch.loading ? (
+                <div className={styles.PokedexResultsTitle}>Loading!...</div>
+            ) : (
+                <>
+                    { results.length ? (
+                        <>    
+                            <div className={styles.PokedexResultsTitle}>Results ...</div>                    
+                            <div className="container">
+                                <div className="row">
+                                    { results.map((pokemon: any, index) => {
+                                        return (
+                                            <div key={index} className="col-4 col-md-3 col-lg-2 col-xl-2"> 
+                                                <PokemonCard linkTo={`/pokedex/${pokemon.name}`} name={pokemon.name} types={pokemon.types} img={pokemon.img} />
+                                            </div>
+                                        )                           
+                                    })}                            
+                                </div>                       
                             </div>
-                            <div className="col-4">
-                                <PokemonCard />
-                            </div>                        
-                            <div className="col-4">
-                                <PokemonCard />
-                            </div>                            
-                        </div>                       
-                    </div>                            
+                        </>                        
+                    ): (
+                        <div className={styles.PokedexResultsTitle}>Search something and discover the world of pokemons!</div>                    
+                    )} 
                 </>
-            ): (
-                <div className={styles.PokedexResultsTitle}>Search something and discover the world of pokemons!</div>
-            )}            
+            )}
+          
+  
+
+
 
         </Template>
     );

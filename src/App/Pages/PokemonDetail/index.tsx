@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect} from "react";
+import {  withRouter, RouteComponentProps } from "react-router";
+import { Link } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+import { 
+    onPokedexDetailsFetch,
+    setPokemonNameDetails
+} from "../../../Redux/B_actions/pokedex";
+import { AppState } from "../../../Redux/D_reducers";
+import { getPokemonDetails } from "../../../Redux/E_selectors/pokedex";
 
 import Template from "../../Template";
 
-import { Link } from "react-router-dom";
+
 import { POKEDEX_PATH } from "../../../Config/constants/ROUTER_URLs";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,60 +28,97 @@ import {
 
 import styles from "./PokemonDetail.module.scss";
 
+interface IPokemonDetails {
+    id : number;
+    name : string;
+    height : number;
+    weight : number;
+    img : string;
+    types : Array<string>;
+    moves : Array<string>;
+}
 
-const PokemonCard = ({ id=25, name="Pikachu", types=["ELECTRIC", "DRAGON"], height=30, weight=120, img="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png", ...props } : any) => {
-    
-    let pokeName = props.match.params.id;
+type TParams = { id: string; };
 
-    console.log(pokeName);
+type DetailProps = RouteComponentProps<TParams>;
+
+const PokemonDetail = ({ match } : DetailProps) => {
+
+    let pokeName = match.params.id;
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(setPokemonNameDetails(pokeName));
+        dispatch(onPokedexDetailsFetch());
+    },[]);
+
+    const PokemonDetails : any = useSelector((state: AppState) => getPokemonDetails(state));
+   
+    const { loading, data } = PokemonDetails;
+
+    const {
+        id,
+        name,
+        height,
+        weight,
+        img,
+        types,
+        moves,       
+    } : IPokemonDetails = data;
     
     return (
         <Template>
             <Link to={POKEDEX_PATH} className={""}><FontAwesomeIcon icon={faArrowLeft} /> Return to pokedex...</Link>
-            <div className={`${styles.PokemonStart}`}>
-                <div className={`${styles.PokemonLeftStart}`}>
-                    <div className={`${styles.PokemonDetailID}`}>
-                        <p><FontAwesomeIcon icon={faFingerprint} /> ID {id}</p>
-                    </div>
-                    <div className={`${styles.PokemonDetailHead}`}>
-                        <div className={`${styles.PokemonDetailHeadName}`}>{name}</div>
-                        <div className={`${styles.PokemonDetailHeadImage}`}><img src={img} alt={name} />
+
+            { loading ? (
+                <div className={styles.PokedexDetailsTitle}>Loading!...</div>
+            ) : (
+                <>
+                    <div className={`${styles.PokemonStart}`}>
+                        <div className={`${styles.PokemonLeftStart}`}>
+                            <div className={`${styles.PokemonDetailID}`}>
+                                <p><FontAwesomeIcon icon={faFingerprint} /> ID {id}</p>
+                            </div>
+                            <div className={`${styles.PokemonDetailHead}`}>
+                                <div className={`${styles.PokemonDetailHeadName}`}>{name}</div>
+                                <div className={`${styles.PokemonDetailHeadImage}`}><img src={img} alt={name} /></div>
+                                <>
+                                    {Array.isArray(types) && types.map((type: any, index : any) => {
+                                        let [ pokeType, pokeName] = stylePokemonType(type)
+                                        return <div key={index} className={`${styles.PokemonDetailHeadType} ${pokeType}`}>{pokeName}</div>;
+                                    })}                                                   
+                                </>                            
+                            </div>
                         </div>
-                        <>
-                            {types.map((type: any, index : any) => {
-                                let [ pokeType, pokeName] = stylePokemonType(type)
-                                return <div key={index} className={`${styles.PokemonDetailHeadType} ${pokeType}`}>{pokeName}</div>;
-                            })}                                                   
-                        </>                            
+                        
+                        <div className={`${styles.PokemonRightStart}`}>
+                            <div className={`${styles.PokemonDetailSectionTitle}`} style={{ color: "#5BA85F" }}>
+                                <p><FontAwesomeIcon icon={faStarOfLife} /> Specs</p>
+                            </div>
+                            <div className={`${styles.PokemonDetailSection} ${styles.Specs}`}>
+                                <p><FontAwesomeIcon icon={faAngleDoubleUp} />  <b>Height:</b> {height} cm</p>
+                                <p><FontAwesomeIcon icon={faWeight} />  <b>Weight:</b> {weight} kg</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <div className={`${styles.PokemonRightStart}`}>
-                    <div className={`${styles.PokemonDetailSectionTitle}`} style={{ color: "#5BA85F" }}>
-                        <p><FontAwesomeIcon icon={faStarOfLife} /> Specs</p>
-                    </div>
-                    <div className={`${styles.PokemonDetailSection} ${styles.Specs}`}>
-                        <p><FontAwesomeIcon icon={faAngleDoubleUp} />  <b>Height:</b> {height} cm</p>
-                        <p><FontAwesomeIcon icon={faWeight} />  <b>Weight:</b> {weight} kg</p>
-                    </div>
-                </div>
-            </div>
 
-            <div className={`${styles.PokemonDetailSectionTitle}`} style={{ color: "#BF4240" }}>
-                <p><FontAwesomeIcon icon={faFire} /> Movements list</p>
-            </div>
-            <div className={`${styles.PokemonDetailSection} ${styles.MovementsList}`}>
-                <ul className="list-group list-group-flush" style={{ width: "100%" }}>
-                    <li className="list-group-item"><FontAwesomeIcon icon={faAngleRight} /> Movement 1</li>
-                    <li className="list-group-item"><FontAwesomeIcon icon={faAngleRight} /> Movement 2</li>
-                    <li className="list-group-item"><FontAwesomeIcon icon={faAngleRight} /> Movement 3</li>
-                    <li className="list-group-item"><FontAwesomeIcon icon={faAngleRight} /> Movement 4</li>
-                </ul>
-            </div>
+                    <div className={`${styles.PokemonDetailSectionTitle}`} style={{ color: "#BF4240" }}>
+                        <p><FontAwesomeIcon icon={faFire} /> Movements list</p>
+                    </div>
+                    <div className={`${styles.PokemonDetailSection} ${styles.MovementsList}`}>
+                        <ul className="list-group list-group-flush" style={{ width: "100%" }}>
+                            { Array.isArray(moves) && moves.map((move : any, index : any) => {
+                                return <li key={index} className="list-group-item"><FontAwesomeIcon icon={faAngleRight} /> {move}</li>
+                            })}                                    
+                        </ul>
+                    </div>
 
-            <div className={`${styles.PokemonDetailSectionTitle}`} style={{ color: "#993fA9" }}>
-                <p><FontAwesomeIcon icon={faChartLine} /> Evolution <i>(future improvement)</i></p>
-            </div>            
+                    <div className={`${styles.PokemonDetailSectionTitle}`} style={{ color: "#993fA9" }}>
+                        <p><FontAwesomeIcon icon={faChartLine} /> Evolution <i>(future improvement)</i></p>
+                    </div>    
+                </>
+            )}        
         </Template>
     )
 }
@@ -82,24 +129,24 @@ const stylePokemonType = (typeName : any) => {
     let name = "???";
 
     switch(typeName){
-        case "NORMAL": type = styles.Normal; name="NORMAL"; break;
-        case "FIRE": type = styles.Fire; name="FIRE"; break;
-        case "FIGHTING": type = styles.Fighting; name="FIGHTING"; break;
-        case "WATER": type = styles.Water; name="WATER"; break;
-        case "FLYING": type = styles.Flying; name="FLYING"; break;
-        case "GRASS": type = styles.Grass; name="GRASS"; break;
-        case "POISON": type = styles.Poison; name="POISON"; break;
-        case "ELECTRIC": type = styles.Electric; name="ELECTRIC"; break;
-        case "GROUND": type = styles.Ground; name="GROUND"; break;
-        case "PSYCHIC": type = styles.Psychic; name="PSYCHIC"; break;
-        case "ROCK": type = styles.Rock; name="ROCK"; break;
-        case "ICE": type = styles.Ice; name="ICE"; break;
-        case "BUG": type = styles.Bug; name="BUG"; break;
-        case "DRAGON": type = styles.Dragon; name="DRAGON"; break;
-        case "GHOST": type = styles.Ghost; name="GHOST"; break;
-        case "DARK": type = styles.Dark; name="DARK"; break;
-        case "STEEL": type = styles.Steel; name="STEEL"; break;
-        case "FAIRY": type = styles.Fairy; name="FAIRY"; break;
+        case "normal": type = styles.Normal; name="NORMAL"; break;
+        case "fire": type = styles.Fire; name="FIRE"; break;
+        case "fighting": type = styles.Fighting; name="FIGHTING"; break;
+        case "water": type = styles.Water; name="WATER"; break;
+        case "flying": type = styles.Flying; name="FLYING"; break;
+        case "grass": type = styles.Grass; name="GRASS"; break;
+        case "poison": type = styles.Poison; name="POISON"; break;
+        case "electric": type = styles.Electric; name="ELECTRIC"; break;
+        case "groung": type = styles.Ground; name="GROUND"; break;
+        case "psychic": type = styles.Psychic; name="PSYCHIC"; break;
+        case "rock": type = styles.Rock; name="ROCK"; break;
+        case "ice": type = styles.Ice; name="ICE"; break;
+        case "bug": type = styles.Bug; name="BUG"; break;
+        case "dragon": type = styles.Dragon; name="DRAGON"; break;
+        case "ghost": type = styles.Ghost; name="GHOST"; break;
+        case "dark": type = styles.Dark; name="DARK"; break;
+        case "steel": type = styles.Steel; name="STEEL"; break;
+        case "fairy": type = styles.Fairy; name="FAIRY"; break;
         default:
             type = styles.Undetermined;
     }    
@@ -107,4 +154,4 @@ const stylePokemonType = (typeName : any) => {
     return [type, name];
 }
 
-export default PokemonCard;
+export default withRouter(PokemonDetail);

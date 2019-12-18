@@ -11,9 +11,10 @@ import {
     GET_POKEDEX_SEARCH_ERROR,
 
     SET_POKEMON_NAME_SEARCH,
-
-    CLEAN_POKEDEX_RESULT,
-    SET_POKEDEX_RESULT
+    SET_POKEMON_CONFIG_SEARCH,
+    SET_POKEMON_CONFIG_DEFAULT_SEARCH,
+    
+    CLEAN_POKEDEX
 } from "../A_constants/pokedex";
 
 export const onPokedexDetailsFetch = createAction(GET_POKEDEX_DETAILS_FETCHING);
@@ -27,6 +28,7 @@ export const onPokedexSearchSuccess = createAction(GET_POKEDEX_SEARCH_SUCCESS);
 export const onPokedexSearchError = createAction(GET_POKEDEX_SEARCH_ERROR);
 
 export const setPokemonNameSearch = createAction(SET_POKEMON_NAME_SEARCH, (payload : any) => payload );
+export const setPokemonConfigSearch = createAction(SET_POKEMON_CONFIG_SEARCH, (payload : any) => payload );
+export const setPokemonConfigDefaultSearch = createAction(SET_POKEMON_CONFIG_DEFAULT_SEARCH);
 
-export const cleanPokedexResult = createAction(CLEAN_POKEDEX_RESULT);
-export const setPokedexResult = createAction(SET_POKEDEX_RESULT);
+export const cleanPokedex = createAction(CLEAN_POKEDEX);

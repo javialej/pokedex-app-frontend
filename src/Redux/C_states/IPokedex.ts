@@ -6,6 +6,8 @@ export interface IPokeResult {
 }
 
 export interface IPokedexState {
+    offset: number;
+    limit: number;
     listOfResults: Array<IPokeResult>;
     pokemonNameDetails: string;
     pokemonNameSearch: string;
@@ -14,6 +16,8 @@ export interface IPokedexState {
   }
   
   export const defaultPokedexState: IPokedexState = {
+    offset: 0,
+    limit: 50,
     listOfResults: [],
     pokemonNameDetails: "",
     pokemonNameSearch: "",
