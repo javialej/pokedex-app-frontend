@@ -103,7 +103,7 @@ export function* handlePokedexSearchFetch() {
             Search = results;
         }else {            
             // REGEX search.                
-            let regularExpression = new RegExp(`((?:\\w|)${pokemonName}(\\w|))`, "g");
+            let regularExpression = new RegExp(`((?:\\w|)${pokemonName.toLowerCase()}(\\w|))`, "g");
             results.forEach((item : string) => {             
                 let founded = item.match(regularExpression);                
                 if(Array.isArray(founded)){
