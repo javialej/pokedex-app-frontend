@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./PokemonCard.module.scss";
 
-const PokemonCard = ({ linkTo="/pokedex/pikachu", name="Pikachu", types=["ELECTRIC", ""], img="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"} : any) => {
+const PokemonCard = ({ linkTo="/pokedex/pikachu", name="Pikachu", types=["electric", ""], img="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"} : any) => {
 
     return (
         <>
@@ -25,24 +25,24 @@ const stylePokemonType = (typeName : any) => {
     let name = "???";
 
     switch(typeName){
-        case "NORMAL": type = styles.Normal; name="NORMAL"; break;
-        case "FIRE": type = styles.Fire; name="FIRE"; break;
-        case "FIGHTING": type = styles.Fighting; name="FIGHTING"; break;
-        case "WATER": type = styles.Water; name="WATER"; break;
-        case "FLYING": type = styles.Flying; name="FLYING"; break;
-        case "GRASS": type = styles.Grass; name="GRASS"; break;
-        case "POISON": type = styles.Poison; name="POISON"; break;
-        case "ELECTRIC": type = styles.Electric; name="ELECTRIC"; break;
-        case "GROUND": type = styles.Ground; name="GROUND"; break;
-        case "PSYCHIC": type = styles.Psychic; name="PSYCHIC"; break;
-        case "ROCK": type = styles.Rock; name="ROCK"; break;
-        case "ICE": type = styles.Ice; name="ICE"; break;
-        case "BUG": type = styles.Bug; name="BUG"; break;
-        case "DRAGON": type = styles.Dragon; name="DRAGON"; break;
-        case "GHOST": type = styles.Ghost; name="GHOST"; break;
-        case "DARK": type = styles.Dark; name="DARK"; break;
-        case "STEEL": type = styles.Steel; name="STEEL"; break;
-        case "FAIRY": type = styles.Fairy; name="FAIRY"; break;
+        case "normal": type = styles.Normal; name="NORMAL"; break;
+        case "fire": type = styles.Fire; name="FIRE"; break;
+        case "fighting": type = styles.Fighting; name="FIGHTING"; break;
+        case "water": type = styles.Water; name="WATER"; break;
+        case "flying": type = styles.Flying; name="FLYING"; break;
+        case "grass": type = styles.Grass; name="GRASS"; break;
+        case "poison": type = styles.Poison; name="POISON"; break;
+        case "electric": type = styles.Electric; name="ELECTRIC"; break;
+        case "ground": type = styles.Ground; name="GROUND"; break;
+        case "psychic": type = styles.Psychic; name="PSYCHIC"; break;
+        case "rock": type = styles.Rock; name="ROCK"; break;
+        case "ice": type = styles.Ice; name="ICE"; break;
+        case "bug": type = styles.Bug; name="BUG"; break;
+        case "dragon": type = styles.Dragon; name="DRAGON"; break;
+        case "ghost": type = styles.Ghost; name="GHOST"; break;
+        case "dark": type = styles.Dark; name="DARK"; break;
+        case "steel": type = styles.Steel; name="STEEL"; break;
+        case "fairy": type = styles.Fairy; name="FAIRY"; break;
         default:
             type = styles.Undetermined;
     }    

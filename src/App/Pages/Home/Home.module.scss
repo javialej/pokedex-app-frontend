@@ -12,6 +12,41 @@
     background-color: #eff7fe;
 }
 
+.HomeSuccess {
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    color: #66bb6a;
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 3px;
+    background-color: #e0f1e1;
+    & > p {
+        margin: 0;
+    }
+}
+
+.HomeError {
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    color: #ef5350;
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 3px;
+    background-color: #fbdcdc;
+    & > p {
+        margin: 0;
+    }
+}
+
+
 .HomeLogin {
     margin: 0 auto;
     display: flex;
@@ -123,4 +158,50 @@
     &:hover{
         background-color: #fbdcdc;
     }
+}
+
+.HomeButton{
+    line-height: 1.2;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    margin-bottom: 16px;
+    border-radius: 3px;    
+    background-color: transparent;
+    margin: 0;
+
+    &.Login{  
+        padding: 12px 55px;
+        font-size: 21px;
+        font-weight: 600;
+        color: #d74a48;
+        border: 0px solid #d74a48;
+        background-color: #fdeded;
+        &:hover{
+            background-color: #fbdcdc;
+        }
+    }
+    
+    &.Create{
+        padding: 15px 10px;
+        font-size: 16px;
+        font-weight: normal;
+        color: #757575;
+        border: 0px solid #757575;
+        background-color: #e3e3e3;
+        &:hover{
+            background-color: #d5d5d5;         
+        }
+    }
+    
+}
+
+.HomeButtons{
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: space-around;
+    width: 100%;
+    padding-top: 12px;
 }
