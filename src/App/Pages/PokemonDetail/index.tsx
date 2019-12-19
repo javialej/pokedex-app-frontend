@@ -98,8 +98,8 @@ const PokemonDetail = () => {
                                 <p><FontAwesomeIcon icon={faStarOfLife} /> Specs</p>
                             </div>
                             <div className={`${styles.PokemonDetailSection} ${styles.Specs}`}>
-                                <p><FontAwesomeIcon icon={faAngleDoubleUp} />  <b>Height:</b> {height} cm</p>
-                                <p><FontAwesomeIcon icon={faWeight} />  <b>Weight:</b> {weight} kg</p>
+                                <p><FontAwesomeIcon icon={faAngleDoubleUp} />  <b>Height:</b> {height} decimetres</p>
+                                <p><FontAwesomeIcon icon={faWeight} />  <b>Weight:</b> {weight} hectograms</p>
                             </div>
                         </div>
                     </div>

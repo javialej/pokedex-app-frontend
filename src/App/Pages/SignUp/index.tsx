@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { withRouter, __RouterContext } from "react-router";
 import useForm from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -13,13 +14,18 @@ import { HOME_PATH } from "../../../Config/constants/ROUTER_URLs";
 
 import styles from "./SignUp.module.scss";
 
-const SignUp = ({ ...props } : any) => {
+const useRouter = () => useContext(__RouterContext);
+
+const SignUp = () => {
 
     const dispatch = useDispatch();
+    const router = useRouter();
+    const { history } = router;  
+
     const { register, watch, errors, triggerValidation, reset, clearError, handleSubmit } = useForm()
     const onSubmit = (data : any) => { 
         dispatch(setNewUser(data));    
-        props.history.push(HOME_PATH)
+        history.push(HOME_PATH)
     }
     
     const handleClear = () => {
@@ -151,4 +157,4 @@ const SignUp = ({ ...props } : any) => {
     );
 };
 
-export default SignUp;
+export default withRouter(SignUp);

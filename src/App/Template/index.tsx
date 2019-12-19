@@ -1,41 +1,35 @@
-import React, { useContext, useEffect } from "react";
-import { __RouterContext } from "react-router";
+import React, { useContext } from "react";
+import { withRouter, __RouterContext } from "react-router";
 import { Link } from "react-router-dom";
+
+import { useDispatch } from "react-redux";
+import { userLogout } from "../../Redux/B_actions/user";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-
 import imgPokemonLogo from "../../Assets/Pokemon_logo.svg";
+import styles from "./Template.module.scss";
 
 import { HOME_PATH, SIGNUP_PATH, POKEDEX_PATH } from "../../Config/constants/ROUTER_URLs";
 
-import styles from "./Template.module.scss";
-
 const useRouter = () => useContext(__RouterContext);
-
 
 const Template: React.FC = (props: any) => {
   
+  const dispatch = useDispatch();
   const router = useRouter();
-  const paths = router.location.pathname;   
+  const { match, history } = router;   
+  const paths =  match.url;
 
-  let button = <Link to={SIGNUP_PATH} className={`btn my-2 my-sm-0 ${styles.NavButtonLogOut}`} >Sign Up</Link>;
-
-  useEffect(() => {      
-    if (paths.includes(POKEDEX_PATH)) {
-      button = <Link to={HOME_PATH} className={`btn my-2 my-sm-0 ${styles.NavButtonLogOut}`} >Log out</Link>;
-    }
-    else if ( paths.includes(SIGNUP_PATH)) {
-      button = <Link to={HOME_PATH} className={`btn my-2 my-sm-0 ${styles.NavButtonLogOut}`} >Sign up</Link>
-    }
-    else{
-      button = <Link to={SIGNUP_PATH} className={`btn my-2 my-sm-0 ${styles.NavButtonLogOut}`} >Sign in</Link>
-    }
-  }, [paths])
+  const handleLogOut = () => {
+    dispatch(userLogout());
+    history.push(HOME_PATH);
+  }
 
   return (
     <div style={{ minHeight: "100vh" }}>        
       <nav className={`navbar fixed-top navbar-expand-lg bg-light ${styles.Nav}`}>
-        <Link to="/" >Pokedex</Link>
+        <Link to={paths.includes(POKEDEX_PATH) ? "/pokedex" : "/" } >Pokedex</Link>
         <img src={imgPokemonLogo} alt="Pokemon logo" />
 
         <button className={`navbar-toggler ${styles.NavButtonToggler}`} type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,15 +37,16 @@ const Template: React.FC = (props: any) => {
         </button>
 
         <div className={`collapse navbar-collapse ${styles.NavCollapsedMenu}`} id="navbarSupportedContent">                      
-          <ul className="navbar-nav mr-auto">
-            {/* <li className="nav-item active">
-              <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Link</a>
-            </li> */}
-          </ul>
-          { button }
+          <ul className="navbar-nav mr-auto"></ul>
+          { (paths.includes(POKEDEX_PATH)) ? 
+              (<button onClick={handleLogOut} className={`btn my-2 my-sm-0 ${styles.NavButton}`} >Log out</button>)
+            : 
+            ( <>{
+                (paths.includes(SIGNUP_PATH)) ? 
+                  (<Link to={HOME_PATH} className={`btn my-2 my-sm-0 ${styles.NavButton}`} >Sign in</Link>)
+                  :(<Link to={SIGNUP_PATH} className={`btn my-2 my-sm-0 ${styles.NavButton}`} >Sign up</Link>)
+              }</>
+          )}
         </div>
       </nav>
 
@@ -72,4 +67,4 @@ const Template: React.FC = (props: any) => {
   );
 };
 
-export default Template;
+export default withRouter(Template);

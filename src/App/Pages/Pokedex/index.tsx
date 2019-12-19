@@ -31,7 +31,8 @@ const Home = () => {
     const onSubmit = (data : any) => { 
         dispatch(setPokemonNameSearch(data.search));
         dispatch(setPokemonConfigSearch());
-        dispatch(onPokedexSearchFetch());
+        dispatch(onPokedexSearchFetch());   
+        reset();     
     }
     
     const handleClear = () => {
@@ -53,7 +54,7 @@ const Home = () => {
             dispatch(setPokemonConfigDefaultSearch());
         }
         dispatch(onPokedexSearchFetch());
-    },[]);
+    },[dispatch, PokemonNameSearch]);
 
     return (
         <Template>      
@@ -94,7 +95,7 @@ const Home = () => {
                 <div className={styles.PokedexResultsTitle}>Loading!...</div>
             ) : (
                 <>
-                    { results.length ? (
+                    { results.length > 0 ? (
                         <>                                
                             <div className="container">
                                 <div className="row">
@@ -109,7 +110,7 @@ const Home = () => {
                             </div>
                         </>                        
                     ): (
-                        <div className={styles.PokedexResultsTitle}>Search something and discover the world of pokemons!</div>                    
+                        <div className={styles.PokedexResultsTitle}>No Results..., search something different and discover the world of pokemons!</div>
                     )} 
                 </>
             )}

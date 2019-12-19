@@ -8,7 +8,7 @@ import Pokedex from "./Pages/Pokedex";
 import PokemonDetail from "./Pages/PokemonDetail";
 import NotFound from "./Pages/NotFound";
 
-// import PrivateRoute from "../Config/PrivateRoute";
+import PrivateRoute from "../Config/PrivateRoute";
 // import AuthGate from "./Components/public/AuthGate";
 
 const Routes = () => {
@@ -17,9 +17,9 @@ const Routes = () => {
     <Router>
       {/* <AuthGate> */}
         <Switch>          
-          {/* Modules routes */}        
-          <Route exact path={POKEDEX_PATH} component={Pokedex} />
-          <Route path={POKEDEX_PATH+"/:id?"} component={PokemonDetail} />
+          {/* Modules routes */}                 
+          <PrivateRoute exact path={POKEDEX_PATH} component={Pokedex} />
+          <PrivateRoute path={POKEDEX_PATH+"/:id?"} component={PokemonDetail} />
           
 
           {/* Common routes */}

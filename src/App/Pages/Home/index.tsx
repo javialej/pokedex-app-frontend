@@ -41,7 +41,7 @@ const Home = ({ ...props } : any) => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className={styles.HomeWelcome}> Welcome to pokedex app! </div>
                 { (Array.isArray(newUsers) && newUsers.length) ? <div className={styles.HomeSuccess}><p><FontAwesomeIcon icon={faCheck} /> Account created!, Login now!</p></div> : ""}
-                { invalidLogin && <div className={styles.HomeError}><p><FontAwesomeIcon icon={faTimes} /> There is an error in your credentials, check please or Create a new account!</p></div>}
+                { invalidLogin && <div className={styles.HomeError}><p><FontAwesomeIcon icon={faTimes} /> There is an error in your credentials, check inputs or Create a new account!</p></div>}
                 <div className={styles.HomeLogin}>
                     <div className={styles.HomeLoginTitle}>Login </div>
                     <div className={styles.HomeLoginCaption}>Please fill the form inputs</div>
