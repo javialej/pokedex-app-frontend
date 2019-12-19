@@ -1,5 +1,8 @@
-import { all } from 'redux-saga/effects';
+import { all, fork } from 'redux-saga/effects';
+import { watchPokedexStart } from './pokedex';
 
 export default function* root() {
-    yield all([])
+    yield all([
+      fork(watchPokedexStart)    
+    ])
 }

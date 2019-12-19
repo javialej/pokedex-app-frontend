@@ -6,6 +6,7 @@ a {
 }
 
 .PokemonCard{
+    height: 95%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -47,7 +48,7 @@ a {
 
 .PokemonCardImage{
     padding-bottom: 5px;
-    margin: -18px -18px;
+    margin: -8px -18px;
 }
 
 .PokemonCardType{
@@ -58,7 +59,7 @@ a {
     padding: 3px 14px;
     margin-bottom: 1px;
     border-radius: 3px;
-
+    
     font-size: 10px;
     line-height: 1;
     font-weight: normal;
@@ -71,6 +72,8 @@ a {
     white-space: nowrap;
     min-width: 75px;
     max-width: 75px;
+    min-height: 18px;
+    max-height: 18px;
     color: white;
 
     @media (min-width: 576px) {        
@@ -78,6 +81,8 @@ a {
         padding: 3px 21px;
         min-width: 120px;
         max-width: 120px;
+        min-height: 22px;
+        max-height: 22px;
     }
 
     &.Normal {
